@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/commons :: head"></head>
+<body>
+<header th:replace="fragments/commons :: nav"></header>
+
+<main class="container-fluid px-3 py-4">
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+
+        <div class="col">
+            <h3 class="text-white mb-3">🎶 Browse Songs</h3>
+
+            <h5 class="text-white">🎤 Pop</h5>
+            <div class="bg-secondary rounded p-2 mb-3" style="max-height: 20vh; overflow-y: auto;">
+                <div th:each="p : ${pop}" th:object="${p}" class="d-flex justify-content-between align-items-center bg-dark text-light p-2 rounded mb-2 playlist-item">
+                    <div>
+                        <img src="/img/pop.png" alt="Pop" width="30" height="30" class="me-2">
+                        <span th:text="|*{performer} - *{title} (*{duration} min)|"></span>
+                    </div>
+                    <a class="btn btn-outline-success btn-sm" th:href="@{'/playlist/add/' + ${p.id}}">
+                        <i class="bi bi-plus-circle-fill"></i>
+                    </a>
+                </div>
+            </div>
+
+            <h5 class="text-white">🎸 Rock</h5>
+            <div class="bg-secondary rounded p-2 mb-3" style="max-height: 20vh; overflow-y: auto;">
+                <div th:each="r : ${rock}" th:object="${r}" class="d-flex justify-content-between align-items-center bg-dark text-light p-2 rounded mb-2 playlist-item">
+                    <div>
+                        <img src="/img/rock.png" alt="Rock" width="30" height="30" class="me-2">
+                        <span th:text="|*{performer} - *{title} (*{duration} min)|"></span>
+                    </div>
+                    <a class="btn btn-outline-success btn-sm" th:href="@{'/playlist/add/' + ${r.id}}">
+                        <i class="bi bi-plus-circle-fill"></i>
+                    </a>
+                </div>
+            </div>
+
+            <h5 class="text-white">🎷 Jazz</h5>
+            <div class="bg-secondary rounded p-2 mb-3" style="max-height: 20vh; overflow-y: auto;">
+                <div th:each="j : ${jazz}" th:object="${j}" class="d-flex justify-content-between align-items-center bg-dark text-light p-2 rounded mb-2 playlist-item">
+                    <div>
+                        <img src="/img/jazz.png" alt="Jazz" width="30" height="30" class="me-2">
+                        <span th:text="|*{performer} - *{title} (*{duration} min)|"></span>
+                    </div>
+                    <a class="btn btn-outline-success btn-sm" th:href="@{'/playlist/add/' + ${j.id}}">
+                        <i class="bi bi-plus-circle-fill"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <h3 class="text-white mb-3">🎧 My Playlist</h3>
+            <div class="bg-dark rounded p-3" style="max-height: 70vh; overflow-y: auto;">
+                <h5 class="text-light mb-3">
+                    Now Playing
+                    <span class="badge bg-secondary float-end" th:text="|${totalSongDuration} min total|"></span>
+                </h5>
+
+                <!-- Playlist Items -->
+                <div th:if="${#lists.isEmpty(myPlaylist)}" class="text-muted fst-italic">
+                    No songs in your playlist yet.
+                </div>
+
+                <div th:each="song : ${myPlaylist}" class="d-flex justify-content-between align-items-center border-bottom border-secondary pb-2 mb-2 playlist-item">
+                    <div>
+                        <img src="/img/playlist.png" alt="Song" width="30" height="30" class="me-2">
+                        <span class="text-light fw-semibold" th:text="${song.performer} + ' - ' + ${song.title}"></span>
+                        <span class="text-muted ms-2" th:text="|(${song.duration} min)|"></span>
+                    </div>
+                    <form th:action="@{/songs/remove}" method="post" class="d-inline">
+                        <input type="hidden" name="songId" th:value="${song.id}" />
+                        <button type="submit" class="btn btn-outline-danger btn-sm">
+                            <i class="bi bi-x-circle-fill"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="text-end mt-2">
+                <a href="/songs/remove/all" class="btn btn-danger btn-sm">
+                    <i class="bi bi-trash3-fill"></i> Remove All
+                </a>
+            </div>
+        </div>
+    </div>
+</main>
+
+<div th:if="${successMessage}" class="toast-container position-fixed top-0 end-0 p-3">
+    <div class="toast show align-items-center text-bg-success border-0" role="alert">
+        <div class="d-flex">
+            <div class="toast-body">
+                <i class="bi bi-check-circle-fill me-2"></i>
+                <span th:text="${successMessage}">Success!</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="fragments/commons :: footer"></footer>
+</body>
+</html>

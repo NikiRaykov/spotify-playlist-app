@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/commons :: head"></head>
+<body>
+<header th:replace="fragments/commons :: nav"></header>
+
+<main class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="card-glass p-4 text-white shadow-lg" style="min-width: 320px; max-width: 480px;">
+        <h2 class="mb-4 text-center">📝 Register</h2>
+        <form th:action="@{/users/register}" th:object="${userRegisterBindingModel}" method="post">
+
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input id="username" type="text" th:field="*{username}" class="form-control" required />
+                <small class="text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Invalid</small>
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input id="email" type="email" th:field="*{email}" class="form-control" required />
+                <small class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Invalid</small>
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input id="password" type="password" th:field="*{password}" class="form-control" required />
+                <small class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Invalid</small>
+            </div>
+
+            <div class="mb-3">
+                <label for="confirmPassword" class="form-label">Confirm Password</label>
+                <input id="confirmPassword" type="password" th:field="*{confirmPassword}" class="form-control" required />
+                <small class="text-danger" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}">Invalid</small>
+            </div>
+
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-success">
+                    <i class="bi bi-person-plus-fill me-1"></i> Register
+                </button>
+            </div>
+        </form>
+        <p class="mt-3 text-center small">
+            Already have an account? <a href="/users/login" class="text-info">Login here</a>
+        </p>
+    </div>
+</main>
+
+<footer th:replace="fragments/commons :: footer"></footer>
+</body>
+</html>
