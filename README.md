@@ -42,3 +42,27 @@ A full-stack web application that lets users browse songs by genre, build custom
 1. Clone the repo:
 ```bash
 git clone https://github.com/YOUR_USERNAME/spotify-playlist-app.git
+
+2. Open in your favorite IDE (IntelliJ, VSCode)
+
+3. Import as Maven project
+
+4. Set JDK to Java 17 or 18
+
+5. Run the app:
+
+bash
+Copy
+Edit
+
+✅ To Do (Next Steps)
+⚡ AJAX add/remove without reloading
+
+🧠 Playlist insights: genre stats, mood score
+
+🌈 Light/Dark mode
+
+🚀 Deploy on Render/Fly.io
+
+📄 License
+This project is open-source and free to use — proudly built as a personal learning and showcase project 🎓
