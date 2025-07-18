@@ -18,3 +18,4 @@ public class DatabaseInit implements CommandLineRunner {
         new Thread(styleService::initStyles).start();
     }
 }
+
