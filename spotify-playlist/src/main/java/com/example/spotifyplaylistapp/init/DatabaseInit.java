@@ -15,6 +15,6 @@ public class DatabaseInit implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        styleService.initStyles();
+        new Thread(styleService::initStyles).start();
     }
 }
